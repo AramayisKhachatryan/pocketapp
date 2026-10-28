@@ -31,6 +31,7 @@ public/icon.svg          source icon; `npm run icons` regenerates the PNGs next 
 
 ## Built mini-apps
 - **mental-math**: Zetamac-style timed drills (Standard + − × ÷, Products, Squares, Decimals, Fractions; 1/2/3/5 min). Custom keypad (fires on pointerdown) plus hardware keys; an answer is accepted the moment it is typed correctly. Collections: `sessions` (score, per-problem times) and `prefs` (last drill and length). Bests and history are per drill + length.
+- **games**: a home-style page that will list games. No games yet: it shows a dashed placeholder tile. When the first game is built, add a games list in the folder and a sub-route (e.g. `#/app/games/<game>`) to `src/core/router.ts`.
 
 ## Storage convention
 - Mini-apps import only from `src/core/storage` (`storage`, `newId`, the types). They never call IndexedDB or localStorage directly.
