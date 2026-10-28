@@ -51,5 +51,8 @@ public/icon.svg          source icon; `npm run icons` regenerates the PNGs next 
 - `npm run icons` — regenerate icons from `public/icon.svg`
 
 ## Deploy
-Live at https://aramayiskhachatryan.github.io/pocketapp/ (repo AramayisKhachatryan/pocketapp, public). GitHub Pages via `.github/workflows/deploy.yml`: every push to `main` builds (Node 18, `npm ci && npm run build`) and publishes `dist/`. Repo must be public (free plan) and Settings → Pages → Source must be "GitHub Actions". Never push or create remote repos without asking.
+Live at https://aramayiskhachatryan.github.io/pocketapp/ (repo AramayisKhachatryan/pocketapp, public). GitHub Pages via `.github/workflows/deploy.yml`: every push to `main` builds (Node 18, `npm ci && npm run build`) and publishes `dist/`. Repo must be public (free plan) and Settings → Pages → Source must be "GitHub Actions".
+
+**Git permissions (granted by the owner):** Claude may commit, push, pull, open pull requests and merge them into `main` (which deploys) without asking. Never delete anything: no branch deletion, no force-push or history rewriting, no deleting repos, releases or user data, so every change can be undone. Ask before creating new remote repos.
+
 Note: iOS storage is per-origin. Data saved while on the LAN URL won't carry over to the hosted URL.
