@@ -6,7 +6,7 @@ A home screen of tiles, each opening a small mini-app. For the owner's personal 
 - **Free only.** No paid services, no backend (for now). Hosting must be free static hosting (GitHub Pages or Cloudflare Pages).
 - **Target: iOS/iPadOS Safari, standalone PWA.** iPhone portrait; iPad portrait and landscape. Light and dark mode follow the system.
 - **Dev machine: Linux, Node 18.19.** Dependencies are pinned to Node-18-compatible versions (Vite 6, @vitejs/plugin-react 4, vite-plugin-pwa 1.1, workbox 7.3, sharp 0.33 via `overrides`). Don't bump them past those lines unless Node is upgraded to ≥ 20.19.
-- A native Swift port of parts is possible later. Keep logic in `src/core/` (plain TS, no React or DOM UI) where that's cheap.
+- A native Swift port of parts is possible later. Keep logic in plain TS with no React or DOM UI where that's cheap: shared logic in `src/core/`, a mini-app's own logic in non-`.tsx` files in its folder (e.g. `src/apps/mental-math/drills.ts`).
 
 ## Stack
 Vite + React 19 + TypeScript, vite-plugin-pwa (generateSW, autoUpdate), lucide-react icons, STIX Two Text (self-hosted via @fontsource, Latin subset) for display type, system font for UI.
@@ -14,11 +14,11 @@ Vite + React 19 + TypeScript, vite-plugin-pwa (generateSW, autoUpdate), lucide-r
 ## Layout
 ```
 src/registry.ts          the single list of mini-apps
-src/apps/<id>/index.tsx  one folder per built mini-app (default-export a component)
+src/apps/<id>/index.tsx  one folder per built mini-app (default-export a component); its own CSS file, imported there, classes prefixed per app
 src/core/                framework-free logic: router.ts (hash routes), time.ts, storage/
 src/screens/             Home, MiniAppScreen (placeholder or lazy app), NotFound
 src/ui/                  Tile, AppBadge, TopBar (back button), YearRule, useRoute
-src/styles/global.css    design tokens (light/dark), safe areas, all styles
+src/styles/global.css    design tokens (light/dark), safe areas, shell styles
 public/icon.svg          source icon; `npm run icons` regenerates the PNGs next to it
 ```
 
@@ -26,7 +26,10 @@ public/icon.svg          source icon; `npm run icons` regenerates the PNGs next 
 - Every mini-app is one entry in `src/registry.ts`: `id` (stable, URL-safe; also its storage namespace), `name`, `subtitle`, `icon` (lucide component), `accent` (mid-tone hex readable in light and dark), `status` (`'planned' | 'ready'`), `load?`.
 - The route is always `#/app/<id>`, derived from the id.
 - `planned` entries have no `load` and show the shared "Coming soon" screen. To build one: create `src/apps/<id>/index.tsx` with a default-exported component, add `load: () => import('./apps/<id>')`, and set `status: 'ready'`. Nothing else changes. The shell provides the top bar and back button, and the tile badge switches to a solid accent.
-- The body of a mini-app renders inside `<main class="miniapp">`, below the top bar.
+- The body of a mini-app renders inside `<main class="miniapp">`, below the top bar. It is a flex column filling the rest of the screen, and sets `--accent` to the app's accent.
+
+## Built mini-apps
+- **mental-math**: Zetamac-style timed drills (Standard + − × ÷, Products, Squares, Decimals, Fractions; 1/2/3/5 min). Custom keypad (fires on pointerdown) plus hardware keys; an answer is accepted the moment it is typed correctly. Collections: `sessions` (score, per-problem times) and `prefs` (last drill and length). Bests and history are per drill + length.
 
 ## Storage convention
 - Mini-apps import only from `src/core/storage` (`storage`, `newId`, the types). They never call IndexedDB or localStorage directly.
