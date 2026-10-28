@@ -9,13 +9,14 @@ A home screen of tiles, each opening a small mini-app. For the owner's personal 
 - A native Swift port of parts is possible later. Keep logic in plain TS with no React or DOM UI where that's cheap: shared logic in `src/core/`, a mini-app's own logic in non-`.tsx` files in its folder (e.g. `src/apps/mental-math/drills.ts`).
 
 ## Stack
-Vite + React 19 + TypeScript, vite-plugin-pwa (generateSW, autoUpdate), lucide-react icons, STIX Two Text (self-hosted via @fontsource, Latin subset) for display type, system font for UI.
+Vite + React 19 + TypeScript, vite-plugin-pwa (generateSW, `prompt` mode: a new version waits and `src/updates.ts` reloads into it once the user is on Home, so updates never interrupt a mini-app), lucide-react icons, STIX Two Text (self-hosted via @fontsource, Latin subset) for display type, system font for UI.
 
 ## Layout
 ```
 src/registry.ts          the single list of mini-apps
 src/apps/<id>/index.tsx  one folder per built mini-app (default-export a component); its own CSS file, imported there, classes prefixed per app
 src/core/                framework-free logic: router.ts (hash routes), time.ts, storage/
+src/updates.ts           service-worker registration and update policy
 src/screens/             Home, MiniAppScreen (placeholder or lazy app), NotFound
 src/ui/                  Tile, AppBadge, TopBar (back button), YearRule, useRoute
 src/styles/global.css    design tokens (light/dark), safe areas, shell styles
