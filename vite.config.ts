@@ -8,8 +8,10 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      // New versions wait and are applied from src/updates.ts when the user is on Home.
-      registerType: 'prompt',
+      // A new version's worker takes over as soon as it installs (skipWaiting + clientsClaim);
+      // src/updates.ts registers it and reloads the page into it once the user is on Home.
+      registerType: 'autoUpdate',
+      injectRegister: false,
       includeAssets: ['favicon.ico', 'apple-touch-icon-180x180.png', 'icon.svg'],
       manifest: {
         id: './',
@@ -30,6 +32,8 @@ export default defineConfig({
         ],
       },
       workbox: {
+        skipWaiting: true,
+        clientsClaim: true,
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
       },
     }),
