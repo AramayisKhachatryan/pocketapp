@@ -25,7 +25,7 @@ export const miniApps: MiniApp[] = [
   { id: 'quick-capture', name: 'Quick Capture', subtitle: 'Notes and to-dos in one tap', icon: Feather, accent: '#c98a1b', status: 'planned' },
   { id: 'problem-log', name: 'Problem Log', subtitle: 'Problems, mistakes, insights', icon: Sigma, accent: '#3d5fb0', status: 'planned' },
   { id: 'flashcards', name: 'Flashcards', subtitle: 'Spaced repetition for formulas', icon: Layers, accent: '#23897f', status: 'planned' },
-  { id: 'mental-math', name: 'Mental Math', subtitle: 'Timed arithmetic drills', icon: Divide, accent: '#7656c4', status: 'planned' },
+  { id: 'mental-math', name: 'Mental Math', subtitle: 'Timed arithmetic drills', icon: Divide, accent: '#7656c4', status: 'ready', load: () => import('./apps/mental-math') },
   { id: 'focus-timer', name: 'Focus Timer', subtitle: 'Deep-work sessions', icon: Timer, accent: '#c4513f', status: 'planned' },
   { id: 'habit-tracker', name: 'Habit Tracker', subtitle: 'Daily habits and streaks', icon: CalendarCheck, accent: '#4b8a3a', status: 'planned' },
   { id: 'applications', name: 'Application Tracker', subtitle: 'Quant and ML roles by stage', icon: Briefcase, accent: '#47698c', status: 'planned' },

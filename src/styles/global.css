@@ -80,6 +80,8 @@ a, button { touch-action: manipulation; }
     calc(var(--safe-left) + var(--gutter));
   max-width: calc(1000px + 2 * var(--gutter));
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   animation: 260ms var(--ease) both;
 }
 .screen[data-enter='push'] { animation-name: enter-push; }
@@ -243,6 +245,14 @@ a, button { touch-action: manipulation; }
 }
 .back:active { background: var(--surface-pressed); }
 .topbar-title { font-weight: 600; }
+
+/* ---------- Mini-app body ---------- */
+/* Fills the screen below the top bar, so an app can pin controls to the bottom. */
+.miniapp {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
 
 /* ---------- Placeholder ---------- */
 .placeholder {

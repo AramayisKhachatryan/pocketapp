@@ -1,4 +1,4 @@
-import { lazy, Suspense, type ComponentType, type LazyExoticComponent } from 'react'
+import { lazy, Suspense, type ComponentType, type CSSProperties, type LazyExoticComponent } from 'react'
 import type { MiniApp } from '../registry'
 import { AppBadge } from '../ui/AppBadge'
 import { TopBar } from '../ui/TopBar'
@@ -29,7 +29,7 @@ export function MiniAppScreen({ app }: { app: MiniApp }) {
   return (
     <>
       <TopBar title={app.name} />
-      <main className="miniapp">
+      <main className="miniapp" style={{ '--accent': app.accent } as CSSProperties}>
         <Suspense fallback={null}>
           <Body />
         </Suspense>
